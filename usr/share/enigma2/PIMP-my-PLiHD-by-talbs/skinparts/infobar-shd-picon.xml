@@ -1,0 +1,123 @@
+
+  <screen name="InfoBarTemplateTalbsMod">
+    <widget source="session.CurrentService" render="Picon" position="10,573" size="220,132" alphatest="blend" backgroundColor="secondBG" transparent="1" zPosition="1">
+      <convert type="ServiceName">Reference</convert>
+    </widget>
+    <widget source="session.CurrentService" render="ChannelNumber" borderWidth="2" position="241,573" size="100,50" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="MyColor" font="Regular;30" valign="center" halign="left" />
+    <widget source="session.CurrentService" render="Label" borderWidth="2" position="325,573" size="500,50" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="MyColor" font="Regular;30" valign="center" halign="left">
+      <convert type="ServiceName">Name</convert>
+    </widget>
+    <widget source="global.CurrentTime" render="Label" borderWidth="2" position="1100,619" size="140,20" backgroundColor="secondBG" noWrap="1" transparent="1" zPosition="1" foregroundColor="white" font="Regular;20" valign="center" halign="center">
+      <convert type="ClockToText">Format:%d.%m.%Y</convert>
+    </widget>
+    <widget source="global.CurrentTime" render="Label" borderWidth="2" position="1100,573" size="140,50" backgroundColor="secondBG" noWrap="1" transparent="1" zPosition="1" foregroundColor="MyColor" font="Regular;30" valign="center" halign="center">
+      <convert type="ClockToText">Format:%-H:%M</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" borderWidth="2" position="430,550" size="630,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="white" font="Regular;16" valign="center" halign="right">
+      <convert type="CryptoInfo">VerboseInfo</convert>
+    </widget>
+    <widget source="session.Event_Now" render="Label" position="240,642" size="70,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="white" font="Regular;24" halign="left">
+      <convert type="EventTime">StartTime</convert>
+      <convert type="ClockToText">Default</convert>
+    </widget>
+    <widget source="session.Event_Now" render="Label" position="325,642" size="620,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="white" noWrap="1" font="Regular;24" halign="left">
+      <convert type="EventName">Name</convert>
+    </widget>
+    <widget source="session.Event_Now" render="Label" position="940,642" size="120,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="white" font="Regular;24" halign="right">
+      <convert type="EventTime">Remaining</convert>
+      <convert type="RemainingToText">InMinutes</convert>
+    </widget>
+    <widget source="session.Event_Next" render="Label" position="240,672" size="70,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="grey" font="Regular;24" halign="left">
+      <convert type="EventTime">StartTime</convert>
+      <convert type="ClockToText">Default</convert>
+    </widget>
+    <widget source="session.Event_Next" render="Label" position="325,672" size="620,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="grey" noWrap="1" font="Regular;24" halign="left">
+      <convert type="EventName">Name</convert>
+    </widget>
+    <widget source="session.Event_Next" render="Label" position="940,672" size="120,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="grey" font="Regular;24" halign="right">
+      <convert type="EventTime">Duration</convert>
+      <convert type="ClockToText">InMinutes</convert>       
+	</widget>
+    <eLabel name="new eLabel" position="240,628" size="820,3" foregroundColor="MyColor" backgroundColor="MyColor" zPosition="1" transparent="0"/>
+    <widget source="session.Event_Now" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/infobar/pbar.png" position="240,625" size="820,8" transparent="1" zPosition="2" borderWidth="0">
+     <convert type="EventTime">Progress</convert>
+    </widget>
+    <ePixmap pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_format_4_3.png" position="1020,588" size="40,21" zPosition="2" alphatest="on" />
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_format_16_9.png" position="1020,588" size="40,21" zPosition="3" alphatest="on">
+      <convert type="ServiceInfo">IsWidescreen</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_format_hd.png" position="1020,588" size="40,21" zPosition="4" alphatest="on">
+      <convert type="ServiceInfo">VideoWidth</convert>
+      <convert type="ValueRange">800,2000</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_txt_on.png" position="983,588" size="33,21" zPosition="2" alphatest="on">
+      <convert type="ServiceInfo">HasTelext</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_dolby_on.png" position="946,588" size="33,21" zPosition="2" alphatest="on">
+      <convert type="ServiceInfo">IsMultichannel</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_crypt_on.png" position="926,588" size="16,21" zPosition="2" alphatest="on">
+      <convert type="ServiceInfo">IsCrypted</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_hbbtv_on.png" position="876,588" size="46,21" zPosition="2" alphatest="on">
+      <convert type="ServiceInfo">HasHBBTV</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_sub_on.png" position="839,588" size="33,21" zPosition="2" alphatest="on">
+      <convert type="ServiceInfo">SubservicesAvailable</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.RecordState" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/buttons/rec.png" position="1070,619" size="20,20" zPosition="3" alphatest="on">
+      <convert type="ConditionalShowHide">Blink</convert>
+    </widget>
+    <widget render="VideoSize" source="session.CurrentService" position="1090,647" size="160,20" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="white" font="Regular;18" halign="left"/>
+    <widget source="session.FrontendStatus" render="Label" position="1090,647" size="160,20" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="white" font="Regular;18" halign="right">
+      <convert type="FrontendInfo">SNRdB</convert>
+    </widget>
+	<widget source="session.CurrentService" render="Label" position="1090,677" size="160,20" backgroundColor="secondBG" transparent="1" zPosition="1" text="DVB-S" font="Regular;18" halign="right">
+      <convert type="ServiceOrbitalPosition"/>
+    </widget>
+    <widget source="session.TunerInfo" render="FixedLabel" position="1090,677" size="20,20" backgroundColor="secondBG" transparent="1" zPosition="2" text="A" foregroundColor="grey" font="Regular;18">
+      <convert type="TunerInfo">TunerUseMask</convert>
+      <convert type="ValueBitTest">1</convert>
+    </widget>
+    <widget source="session.TunerInfo" render="FixedLabel" position="1110,677" size="20,20" backgroundColor="secondBG" transparent="1" zPosition="2" text="B" foregroundColor="grey" font="Regular;18">
+      <convert type="TunerInfo">TunerUseMask</convert>
+      <convert type="ValueBitTest">2</convert>
+    </widget>
+    <widget source="session.TunerInfo" render="FixedLabel" position="1130,677" size="20,20" backgroundColor="secondBG" transparent="1" zPosition="2" text="C" foregroundColor="grey" font="Regular;18">
+      <convert type="TunerInfo">TunerUseMask</convert>
+      <convert type="ValueBitTest">4</convert>
+    </widget>
+    <widget source="session.TunerInfo" render="FixedLabel" position="1150,677" size="20,20" backgroundColor="secondBG" transparent="1" zPosition="2" text="D" foregroundColor="grey" font="Regular;18">
+      <convert type="TunerInfo">TunerUseMask</convert>
+      <convert type="ValueBitTest">8</convert>
+    </widget>
+    <widget source="session.FrontendInfo" render="FixedLabel" position="1090,677" size="20,20" backgroundColor="secondBG" transparent="1" zPosition="3" text="A" foregroundColor="MyColor" font="Regular;18" halign="left">
+      <convert type="FrontendInfo">NUMBER</convert>
+      <convert type="ValueRange">0,0</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.FrontendInfo" render="FixedLabel" position="1110,677" size="20,20" backgroundColor="secondBG" transparent="1" zPosition="3" text="B" foregroundColor="MyColor" font="Regular;18" halign="left">
+      <convert type="FrontendInfo">NUMBER</convert>
+      <convert type="ValueRange">1,1</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.FrontendInfo" render="FixedLabel" position="1130,677" size="20,20" backgroundColor="secondBG" transparent="1" zPosition="3" text="C" foregroundColor="MyColor" font="Regular;18" halign="left">
+      <convert type="FrontendInfo">NUMBER</convert>
+      <convert type="ValueRange">2,2</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.FrontendInfo" render="FixedLabel" position="1150,677" size="20,20" backgroundColor="secondBG" transparent="1" zPosition="3" text="D" foregroundColor="MyColor" font="Regular;18" halign="left">
+      <convert type="FrontendInfo">NUMBER</convert>
+      <convert type="ValueRange">3,3</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <!--<ePixmap pixmap="PIMP-my-PLiHD-by-talbs/icons/icon_update_off.png" position="60,35" size="20,20" zPosition="0" alphatest="blend" />-->
+  </screen>
+  </skin>
