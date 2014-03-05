@@ -1987,7 +1987,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
     <panel name="PigTemplate"/>
     <panel name="ButtonTemplate_RGYB"/>
     <widget name="config" position="530,110" size="690,300" scrollbarMode="showOnDemand" />
-    <ePixmap pixmap="PIMP-my-PLiHD-by-talbs/parts/ColorPanel.png" position="675,420" size="399,196" zPosition="1" alphatest="on" />
+    <ePixmap pixmap="PIMP-my-PLiHD-by-talbs/skinparts/ColorPanel.png" position="675,420" size="399,196" zPosition="1" alphatest="on" />
 	<eLabel text="Cancel" position="185,643" size="220,28" backgroundColor="black" zPosition="1" transparent="1" font="Regular;24" halign="left"/>
     <eLabel text="Save" position="460,643" size="220,28" backgroundColor="black" zPosition="1" transparent="1" font="Regular;24" halign="left"/>
     <eLabel text="Restart Enigma2" position="735,643" size="220,28" backgroundColor="black" zPosition="1" transparent="1" font="Regular;24" halign="left"/>
