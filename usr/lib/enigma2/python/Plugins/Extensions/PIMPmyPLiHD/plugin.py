@@ -202,16 +202,20 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 			xFile.close()
 	
 			q = open(self.SkinFinal,"w")
-			for line in open(self.SkinDefault):
-				line = line.replace("#0018b9ce", config.plugins.PIMPmyPLiHD.SkinColor.value )
-				line = line.replace("nmsbd.ttf", config.plugins.PIMPmyPLiHD.FontSelection.value )
-				if config.plugins.PIMPmyPLiHD.ListBoxColor.value == "Black":
+			if config.plugins.PIMPmyPLiHD.ListBoxColor.value == "Black":
+				for line in open(self.SkinDefault):
+					line = line.replace("#0018b9ce", config.plugins.PIMPmyPLiHD.SkinColor.value )
+					line = line.replace("nmsbd.ttf", config.plugins.PIMPmyPLiHD.FontSelection.value )
 					line = line.replace("#0018b9cd", "black")
 					line = line.replace("#00fffffe", "MyColor")
-				else:
+					q.write(line)
+			else:
+				for line in open(self.SkinDefault):
+					line = line.replace("#0018b9ce", config.plugins.PIMPmyPLiHD.SkinColor.value )
+					line = line.replace("nmsbd.ttf", config.plugins.PIMPmyPLiHD.FontSelection.value )
 					line = line.replace("#0018b9cd", "MyColor")
 					line = line.replace("#00fffffe", "white")
-				q.write(line)
+					q.write(line)
 			q.close()
 			
 		except:

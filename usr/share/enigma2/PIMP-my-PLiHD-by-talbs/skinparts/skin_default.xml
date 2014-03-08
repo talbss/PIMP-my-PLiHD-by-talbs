@@ -135,6 +135,7 @@
   <screen name="InfoBar" title="InfoBar" position="fill" backgroundColor="transparent" flags="wfNoBorder">
     <ePixmap alphatest="off" pixmap="PIMP-my-PLiHD-by-talbs/infobar/hd.png" position="0,510" size="1280,220" zPosition="-1" />
     <panel name="InfoBarTemplateTalbsMod"/>
+	<panel name="SNRTemplateTalbsMod"/>
   </screen>
 
   <screen name="SecondInfoBar" title="Second InfoBar" position="fill" flags="wfNoBorder">
@@ -182,6 +183,7 @@
           <convert type="EventName">FullDescription</convert>
     </widget>
     <panel name="InfoBarTemplateTalbsMod"/>
+	<panel name="OrbitalTemplateTalbsMod"/>
     <panel name="MetrixWeatherTemplate"/>
   </screen>
 
