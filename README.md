@@ -18,6 +18,5 @@ With this skin you can customize:
  
 Also:
 - This is my first plugin in python (even if i didn't had to do it from scratch) so if you have any comment on how to optimze it you're welcome.
-- Better configure SNR in % and not dB in the infobar when using bold fonts. (otherwise if a HD channel is played, the screen size will cover up the SNR in dB).
 - This skin is about 3Mb (mainly due to fonts).
 - Thank you for your feedback.
