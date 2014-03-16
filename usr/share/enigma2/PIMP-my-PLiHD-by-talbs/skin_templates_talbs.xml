@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin>
+ 
+  <screen name="PIMPmyPLiHD" position="fill" flags="wfNoBorder" title="Configuration Panel for PIMP my PLiHD by talbs skin">
+    <panel name="PigTemplate"/>
+    <panel name="ButtonTemplate_RGYB"/>
+    <widget name="config" position="530,110" size="690,300" scrollbarMode="showOnDemand" />
+    <ePixmap pixmap="PIMP-my-PLiHD-by-talbs/skinparts/ColorPanel.png" position="675,420" size="399,196" zPosition="1" alphatest="on" />
+	<eLabel text="Cancel" position="185,643" size="220,28" backgroundColor="black" zPosition="1" transparent="1" font="Regular;24" halign="left"/>
+    <eLabel text="Save" position="460,643" size="220,28" backgroundColor="black" zPosition="1" transparent="1" font="Regular;24" halign="left"/>
+    <eLabel text="Restart Enigma2" position="735,643" size="220,28" backgroundColor="black" zPosition="1" transparent="1" font="Regular;24" halign="left"/>
+	<eLabel text="Information" position="1010,643" size="220,28" backgroundColor="black" zPosition="1" transparent="1" font="Regular;24" halign="left"/>
+  </screen>
+ 
+ <screen name="MetrixNoWeatherTemplate">
+	    <!-- Void -->	
+ </screen>
+ 
+ <screen name="MetrixWeatherTemplate">
+    <widget render="MetrixWeatherUpdater" source="global.CurrentTime" position="881,42" size="1,47" backgroundColor="white" foregroundColor="white" valign="center" halign="center" font="Meteo; 1" zPosition="10" />
+    <widget source="session.CurrentService" render="Label" position="694,42" size="60,55" font="Regular; 37" zPosition="10" halign="right" valign="center" foregroundColor="secondFG" backgroundColor="secondBG" transparent="1" noWrap="1">
+      <convert type="MetrixWeather">currentWeatherTemp</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" position="754,42" size="25,20" font="Regular; 17" zPosition="10" halign="left" valign="center" foregroundColor="secondFG" backgroundColor="secondBG" transparent="1" noWrap="1">
+      <convert type="MetrixWeather">CF</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" position="831,42" size="45,26" font="Regular; 16" zPosition="10" halign="center" valign="center" foregroundColor="white" backgroundColor="black" transparent="1" noWrap="1">
+      <convert type="MetrixWeather">forecastTodayTempMax</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" position="831,66" size="45,26" font="Regular; 16" zPosition="10" halign="center" valign="center" foregroundColor="secondFG" backgroundColor="secondBG" transparent="1" noWrap="1">
+      <convert type="MetrixWeather">forecastTodayTempMin</convert>
+    </widget>
+    <eLabel name="o" position="881,42" size="1,47" backgroundColor="white" zPosition="3" transparent="0" foregroundColor="white" />
+    <widget source="session.CurrentService" render="Label" position="886,42" size="50,55" font="Meteo; 30" zPosition="10" halign="center" valign="center" backgroundColor="black" transparent="1" noWrap="1">
+      <convert type="MetrixWeather">forecastTomorrowCode</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" position="939,42" size="45,26" font="Regular; 16" zPosition="10" halign="center" valign="center" foregroundColor="white" backgroundColor="black" transparent="1" noWrap="1">
+      <convert type="MetrixWeather">forecastTomorrowTempMax</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" position="939,66" size="45,26" font="Regular; 16" zPosition="10" halign="center" valign="center" foregroundColor="secondFG" backgroundColor="secondBG" transparent="1" noWrap="1">
+      <convert type="MetrixWeather">forecastTomorrowTempMin</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" position="778,42" size="50,55" font="Meteo; 30" zPosition="10" halign="center" valign="center" backgroundColor="black" transparent="1" noWrap="1">
+      <convert type="MetrixWeather">forecastTodayCode</convert>
+    </widget>
+ </screen>
+
+ <screen name="MetrixWeatherNoCityTemplate">
+	<!-- void -->
+ </screen>
+ 
+ <screen name="MetrixWeatherCityTemplate">
+	<widget source="session.CurrentService" render="Label" position="694,98" size="291,20" font="Regular; 18" zPosition="10" halign="center" valign="center" foregroundColor="white" backgroundColor="secondBG" transparent="1" noWrap="1">
+	  <convert type="MetrixWeather">currentLocation</convert>
+	</widget>
+ </screen>
+  
+ <screen name="InfoBarTemplateSHDPicon">
+    <widget source="session.CurrentService" render="Picon" position="60,570" size="220,132" alphatest="blend" backgroundColor="secondBG" transparent="1" zPosition="1">
+      <convert type="ServiceName">Reference</convert>
+    </widget>
+    <widget source="session.CurrentService" render="ChannelNumber" borderWidth="2" position="321,573" size="100,50" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;26" valign="center" halign="left" />
+    <widget source="session.CurrentService" render="Label" borderWidth="2" position="405,573" size="400,50" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;26" valign="center" halign="left">
+      <convert type="ServiceName">Name</convert>
+    </widget>
+    <widget source="global.CurrentTime" render="Label" borderWidth="2" position="320,550" size="360,30" backgroundColor="secondBG" noWrap="1" transparent="1" zPosition="1" foregroundColor="secondFG" font="Regular;16" valign="center" halign="left">
+      <convert type="ClockToText">Date</convert>
+    </widget>
+    <widget source="global.CurrentTime" render="Label" borderWidth="2" position="1100,540" size="140,50" backgroundColor="secondBG" noWrap="1" transparent="1" zPosition="1" foregroundColor="secondFG" font="Regular;26" valign="center" halign="left">
+      <convert type="ClockToText">Format:%-H:%M</convert>
+    </widget>
+    <widget source="session.RecordState" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/buttons/rec.png" position="290,588" size="20,20" zPosition="3" alphatest="on">
+      <convert type="ConditionalShowHide">Blink</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" borderWidth="2" position="430,550" size="630,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;16" valign="center" halign="right">
+      <convert type="CryptoInfo">VerboseInfo</convert>
+    </widget>
+    <widget source="session.Event_Now" render="Label" position="320,642" size="70,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;24" halign="left">
+      <convert type="EventTime">StartTime</convert>
+      <convert type="ClockToText">Default</convert>
+    </widget>
+    <widget source="session.Event_Now" render="Label" position="405,642" size="520,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" noWrap="1" font="Regular;24" halign="left">
+      <convert type="EventName">Name</convert>
+    </widget>
+    <widget source="session.Event_Now" render="Label" position="940,642" size="120,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;24" halign="right">
+      <convert type="EventTime">Remaining</convert>
+      <convert type="RemainingToText">InMinutes</convert>
+    </widget>
+    <widget source="session.Event_Next" render="Label" position="320,672" size="70,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="grey" font="Regular;24" halign="left">
+      <convert type="EventTime">StartTime</convert>
+      <convert type="ClockToText">Default</convert>
+    </widget>
+    <widget source="session.Event_Next" render="Label" position="405,672" size="520,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="grey" noWrap="1" font="Regular;24" halign="left">
+      <convert type="EventName">Name</convert>
+    </widget>
+    <widget source="session.Event_Next" render="Label" position="940,672" size="120,30" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="grey" font="Regular;24" halign="right">
+      <convert type="EventTime">Duration</convert>
+      <convert type="ClockToText">InMinutes</convert>
+    </widget>
+	<eLabel name="new eLabel" position="320,627" size="740,4" foregroundColor="secondFG" backgroundColor="secondFG" zPosition="1" transparent="0"/>
+    <widget source="session.Event_Now" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/infobar/pbar.png" position="320,625" size="740,8" transparent="1" zPosition="2" borderWidth="0">
+      <convert type="EventTime">Progress</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_format_4_3.png" position="1020,588" size="40,21" zPosition="3" alphatest="on">
+      <convert type="ServiceInfo">IsSDAndNotWidescreen</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_format_16_9.png" position="1020,588" size="40,21" zPosition="3" alphatest="on">
+      <convert type="ServiceInfo">IsSDAndWidescreen</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_format_hd.png" position="1020,588" size="40,21" zPosition="4" alphatest="on">
+      <convert type="ServiceInfo">IsHD</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_txt_on.png" position="983,588" size="33,21" zPosition="2" alphatest="on">
+      <convert type="ServiceInfo">HasTelext</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_dolby_on.png" position="946,588" size="33,21" zPosition="2" alphatest="on">
+      <convert type="ServiceInfo">IsMultichannel</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_crypt_on.png" position="926,588" size="16,21" zPosition="2" alphatest="on">
+      <convert type="ServiceInfo">IsCrypted</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_hbbtv_on.png" position="876,588" size="46,21" zPosition="2" alphatest="on">
+      <convert type="ServiceInfo">HasHBBTV</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_sub_on.png" position="839,588" size="33,21" zPosition="2" alphatest="on">
+      <convert type="ServiceInfo">SubservicesAvailable</convert>
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget render="VideoSize" source="session.CurrentService" position="1100,619" size="110,20" backgroundColor="secondBG" font="Regular;19" foregroundColor="foreground" halign="left" transparent="1" zPosition="1" />
+    <widget source="session.FrontendStatus" render="Label" position="1100,647" size="75,22" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;19">
+      <convert type="FrontendInfo">SNRdB</convert>
+    </widget>
+    <widget source="session.FrontendInfo" render="Label" position="1100,590" size="110,20" borderWidth="1" borderColor="black" zPosition="1" backgroundColor="transpBlack" transparent="1" halign="left" font="Regular;20">
+      <convert type="FrontendInfo">STRING</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" position="1100,675" size="110,22" backgroundColor="secondBG" transparent="1" zPosition="1" text="DVB-S" font="Regular;19">
+      <convert type="ServiceOrbitalPosition"/>
+    </widget>
+    <!--<ePixmap pixmap="PIMP-my-PLiHD-by-talbs/icons/icon_update_off.png" position="60,35" size="20,20" zPosition="0" alphatest="blend" />-->
+  </screen>
+
+</skin>
