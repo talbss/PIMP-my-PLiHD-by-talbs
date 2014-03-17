@@ -35,15 +35,15 @@
     <color name="infobarBG" value="#41080808"/>
     <color name="listbox" value="#000f56a4"/>
     <color name="noTransBG" value="#00101214"/>
-    <color name="orange" value="#00ffc000"/>
+    <color name="orange" value="#00bf9217"/>
     <color name="rds_text_bg" value="#00003258"/>
     <color name="red" value="#00ff4a3c"/>
     <color name="redtransparent" value="#084c0000"/>
     <color name="rssviewtop" value="#00005050"/>
     <color name="secondBG" value="#18101214"/>
-    <color name="secondFG" value="#00fcc000"/>
+    <color name="secondFG" value="#00bf9217"/>
     <color name="selectedBG" value="#06303240"/>
-    <color name="selectedFG" value="#00fcc000"/>
+    <color name="selectedFG" value="#00bf9217"/>
     <color name="transparent" value="#ff000000"/>
     <color name="transpBlack" value="#54111112"/>
     <color name="transpWhite" value="#70f0f0f0"/>
@@ -52,7 +52,7 @@
     <color name="un4a00a0a" value="#04a00a0a"/>
     <color name="uncccccc" value="#00cccccc"/>
     <color name="white" value="#00f0f0f0"/>
-    <color name="yellow" value="#00fcc000"/>
+    <color name="yellow" value="#00bf9217"/>
     <color name="yellowtransparent" value="#084b4b00"/>
   </colors> 
   

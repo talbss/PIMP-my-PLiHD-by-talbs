@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin>
  
-  <screen name="PIMPmyPLiHD" position="fill" flags="wfNoBorder" title="Configuration Panel for PIMP my PLiHD by talbs skin">
+  <screen name="PIMPmyPLiHD" position="fill" flags="wfNoBorder" title="Configuration Tool for PIMP my PLiHD by talbs skin">
     <panel name="PigTemplate"/>
     <panel name="ButtonTemplate_RGYB"/>
     <widget name="config" position="530,110" size="690,300" scrollbarMode="showOnDemand" />
