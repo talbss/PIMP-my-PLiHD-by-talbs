@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 #######################################################################
-#
+#    Configuration tool for PIMP-my-PLiHD-by-talbs skin
+#	 based on
 #    MyMetrix 
 #    Coded by iMaxxx (c) 2013
 #    
@@ -42,6 +43,9 @@ from shutil import move, copy
 
 #############################################################
 
+
+
+
 config.plugins.PIMPmyPLiHD = ConfigSubsection()
 config.plugins.MetrixWeather = ConfigSubsection()
 config.plugins.MetrixWeather.refreshInterval = ConfigNumber(default=10)
@@ -67,7 +71,7 @@ config.plugins.PIMPmyPLiHD.InfobarWeatherCityWidget = ConfigSelection(default="n
 				])
 			
 				
-config.plugins.PIMPmyPLiHD.SkinColor = ConfigSelection(default="#0018b9ce", choices = [
+config.plugins.PIMPmyPLiHD.SkinColor = ConfigSelection(default="#00bf9217", choices = [
 				("#00F0A30A", _("1-Amber")),
 				("#00825A2C", _("2-Brown")),
 				("#000050EF", _("3-Cobalt")),
@@ -94,18 +98,6 @@ config.plugins.PIMPmyPLiHD.ListBoxColor = ConfigSelection(default="Main Color", 
 				("MainColor", _("Main Color")),
 				("Black", _("Black"))
 				])				
-			
-config.plugins.PIMPmyPLiHD.FontSelection = ConfigSelection(default="nmsbd.ttf", choices = [
-				("nmsbd.ttf", _("nmsbd (default PLiHD font)")),
-				("/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/DejaVuSansCondensed.ttf", _("DejaVuSansCondensed")),
-				("/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/DejaVuSansCondensedBold.ttf", _("DejaVuSansCondensedBold")),
-				("/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/DejaVuSansCondensedBoldItalic.ttf", _("DejaVuSansCondensedBoldItalic")),
-				("/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/DroidSans.ttf", _("DroidSans")),
-				("/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/KsBold.ttf", _("KsBold")),
-				("/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/KsBoldItalic.ttf", _("KsBoldItalic")),
-				("/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/Custom.ttf", _("Custom"))
-				])
-				
 				
 def main(session, **kwargs):
 	session.open(PIMPmyPLiHD)
@@ -135,9 +127,20 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 """
 
 	def __init__(self, session, args = None, picPath = None):
-		self.skin_lines = []
 		Screen.__init__(self, session)
 		self.session = session
+		
+		fontlist = []
+		self.myfontpath = "/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/"
+		self.openplifontpath = "/usr/share/fonts/"
+		fontlist.append(('nmsbd.ttf', 'nmsbd (default PLiHD font)'))
+		for myfonts in listdir(self.myfontpath):
+			if myfonts != "meteocons.ttf":
+				if myfonts.find('.ttf') !=-1:
+					myfontsname = myfonts.replace('.ttf', '')
+					fontlist.append((self.myfontpath + myfonts, myfontsname))
+		config.plugins.PIMPmyPLiHD.FontSelection = ConfigSelection(choices=fontlist)
+		
 		self.SkinDefault = "/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/default_skin.xml"
 		self.SkinDefaultTmp = self.SkinDefault + ".TMP"
 		self.SkinFinal = "/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/skin.xml"
@@ -179,7 +182,7 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 		restartbox.setTitle(_("Restart GUI"))
 		
 	def showInfo(self):
-		self.session.open(MessageBox, _("PIMP-my-PLiHD-by-talbs\n\nTo get your MetrixWeather City ID visit\n\nhttp://open-store.net/?page=metrixweather"), MessageBox.TYPE_INFO)
+		self.session.open(MessageBox, _("PIMP-my-PLiHD-by-talbs\n\n- To get your MetrixWeather City ID visit\nhttp://open-store.net/?page=metrixweather\n\n- To use your own font, send it to\n/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/ "), MessageBox.TYPE_INFO)
 
 	def save(self):
 	
@@ -193,41 +196,34 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 		try:
 
 			skinSearchAndReplace = []
-			skinSearchAndReplace.append(['#00fcc000', config.plugins.PIMPmyPLiHD.SkinColor.value ])
+			skinSearchAndReplace.append(['#00bf9217', config.plugins.PIMPmyPLiHD.SkinColor.value ])
 			if config.plugins.PIMPmyPLiHD.FontSelection.value != "nmsbd.ttf":
 				skinSearchAndReplace.append(['nmsbd.ttf', config.plugins.PIMPmyPLiHD.FontSelection.value ])
 			if config.plugins.PIMPmyPLiHD.ListBoxColor.value == "Black":
 				skinSearchAndReplace.append(['<color name="ListboxSelectedBackground" color="selectedFG"/>', '<color name="ListboxSelectedBackground" color="black"></color>' ])
 				skinSearchAndReplace.append(['<color name="ListboxSelectedForeground" color="white"/>', '<color name="ListboxSelectedForeground" color="selectedFG"></color>' ])
+			if config.plugins.PIMPmyPLiHD.PiconsChoice.value == "shdpicon":
+				skinSearchAndReplace.append(['<panel name="InfoBarTemplate"/>', '<panel name="InfoBarTemplateSHDPicon"/>' ])
 			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.value == "weather":
 				skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplate"/>' ])
-			if config.plugins.PIMPmyPLiHD.InfobarWeatherCityWidget.value == "city":
-				skinSearchAndReplace.append(['<panel name="MetrixWeatherNoCityTemplate"/>', '<panel name="MetrixWeatherCityTemplate"/>' ])
-			if config.plugins.PIMPmyPLiHD.PiconsChoice.value == "shdpicon":
-				skinSearchAndReplace.append(['<panel name="InfoBarTemplate"/>', '<panel name="InfoBarTemplateSHDPicon"/>' ])				
-			
-			
-			#skin_lines = appendSkinFile2(self.SkinDefault, skinSearchAndReplace)
+				if config.plugins.PIMPmyPLiHD.InfobarWeatherCityWidget.value == "city":
+					skinSearchAndReplace.append(['<panel name="MetrixWeatherNoCityTemplate"/>', '<panel name="MetrixWeatherCityTemplate"/>' ])		
 
-			rsSkinLines2 = []
-
-			skFile2 = open(self.SkinDefault, "r")
-			file_lines2 = skFile2.readlines()
-			skFile2.close()
-
-			for skinLine2 in file_lines2:
+			SkinDefaultFile = open(self.SkinDefault, "r")
+			SkinDefaultLines = SkinDefaultFile.readlines()
+			SkinDefaultFile.close()
+			PimpedLines = []
+			for Line in SkinDefaultLines:
 				for item in skinSearchAndReplace:
-					skinLine2 = skinLine2.replace(item[0], item[1])
-				rsSkinLines2.append(skinLine2)
+					Line = Line.replace(item[0], item[1])
+				PimpedLines.append(Line)
 				
-			xFile = open(self.SkinDefaultTmp, "w")
-			for xx in rsSkinLines2:
-				xFile.writelines(xx)
-			xFile.close()
+			TmpFile = open(self.SkinDefaultTmp, "w")
+			for Lines in PimpedLines:
+				TmpFile.writelines(Lines)
+			TmpFile.close()
 			move(self.SkinDefaultTmp, self.SkinFinal)
 			
-			config.skin.primary_skin.setValue("PIMP-my-PLiHD-by-talbs/MyPimpedSkin.xml")
-	
 		except:
 			self.session.open(MessageBox, _("Error creating Skin!"), MessageBox.TYPE_ERROR)
 
@@ -242,36 +238,6 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 		else:
 			self.close()
 			
-	def appendSkinFile(self,appendFileName):
-		skFile = open(appendFileName, "r")
-		file_lines = skFile.readlines()
-		skFile.close()	
-		for x in file_lines:
-			self.skin_lines.append(x)
-
-	def appendSkinFile2(appendFileName, skinPartSearchAndReplace):
-		"""
-		add skin file to main skin content
-
-		appendFileName:
-		 xml skin-part to add
-
-		skinPartSearchAndReplace:
-		 (optional) a list of search and replace arrays. first element, search, second for replace
-		"""
-		rsSkinLines = []
-
-		skFile = open(appendFileName, "r")
-		file_lines = skFile.readlines()
-		skFile.close()
-
-		for skinLine in file_lines:
-			for item in skinPartSearchAndReplace:
-				skinLine = skinLine.replace(item[0], item[1])
-			rsSkinLines.append(skinLine)
-
-		return rsSkinLines			
-
 	def exit(self):
 		for x in self["config"].list:
 			if len(x) > 1:
