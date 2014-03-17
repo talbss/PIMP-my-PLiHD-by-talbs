@@ -43,9 +43,6 @@ from shutil import move, copy
 
 #############################################################
 
-
-
-
 config.plugins.PIMPmyPLiHD = ConfigSubsection()
 config.plugins.MetrixWeather = ConfigSubsection()
 config.plugins.MetrixWeather.refreshInterval = ConfigNumber(default=10)
@@ -60,16 +57,9 @@ config.plugins.PIMPmyPLiHD.PiconsChoice = ConfigSelection(default="normalpicon",
 				("normalpicon", _("Normal (100x60)"))
 				])
 	
-config.plugins.PIMPmyPLiHD.InfobarWeatherWidget = ConfigSelection(default="noweather", choices = [
-				("weather", _("Yes")),
-				("noweather", _("No"))
-				])
+config.plugins.PIMPmyPLiHD.InfobarWeatherWidget = ConfigYesNo(default = False)
 
-config.plugins.PIMPmyPLiHD.InfobarWeatherCityWidget = ConfigSelection(default="nocity", choices = [
-				("city", _("Yes")),
-				("nocity", _("No"))
-				])
-			
+config.plugins.PIMPmyPLiHD.InfobarWeatherCityWidget = ConfigYesNo(default = False)			
 				
 config.plugins.PIMPmyPLiHD.SkinColor = ConfigSelection(default="#00bf9217", choices = [
 				("#00F0A30A", _("1-Amber")),
@@ -106,7 +96,6 @@ def Plugins(**kwargs):
 	return PluginDescriptor(name="PIMP my PLiHD", description=_("Configuration tool for PIMP-my-PLiHD-by-talbs skin"), where = PluginDescriptor.WHERE_PLUGINMENU, icon="plugin.png", fnc=main)
 
 
-
 #######################################################################
 
 
@@ -139,7 +128,7 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 				if myfonts.find('.ttf') !=-1:
 					myfontsname = myfonts.replace('.ttf', '')
 					fontlist.append((self.myfontpath + myfonts, myfontsname))
-		config.plugins.PIMPmyPLiHD.FontSelection = ConfigSelection(choices=fontlist)
+		config.plugins.PIMPmyPLiHD.FontSelection = ConfigSelection(default="nmsbd (default PLiHD font)",choices=fontlist)
 		
 		self.SkinDefault = "/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/default_skin.xml"
 		self.SkinDefaultTmp = self.SkinDefault + ".TMP"
@@ -204,9 +193,9 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 				skinSearchAndReplace.append(['<color name="ListboxSelectedForeground" color="white"/>', '<color name="ListboxSelectedForeground" color="selectedFG"></color>' ])
 			if config.plugins.PIMPmyPLiHD.PiconsChoice.value == "shdpicon":
 				skinSearchAndReplace.append(['<panel name="InfoBarTemplate"/>', '<panel name="InfoBarTemplateSHDPicon"/>' ])
-			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.value == "weather":
+			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.getValue() is True:
 				skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplate"/>' ])
-				if config.plugins.PIMPmyPLiHD.InfobarWeatherCityWidget.value == "city":
+				if config.plugins.PIMPmyPLiHD.InfobarWeatherCityWidget.getValue() is True:
 					skinSearchAndReplace.append(['<panel name="MetrixWeatherNoCityTemplate"/>', '<panel name="MetrixWeatherCityTemplate"/>' ])		
 
 			SkinDefaultFile = open(self.SkinDefault, "r")
