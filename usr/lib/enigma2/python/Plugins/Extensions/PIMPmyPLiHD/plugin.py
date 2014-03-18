@@ -57,9 +57,11 @@ config.plugins.PIMPmyPLiHD.PiconsChoice = ConfigSelection(default="normalpicon",
 				("normalpicon", _("Normal (100x60)"))
 				])
 	
-config.plugins.PIMPmyPLiHD.InfobarWeatherWidget = ConfigYesNo(default = False)
-
-config.plugins.PIMPmyPLiHD.InfobarWeatherCityWidget = ConfigYesNo(default = False)			
+config.plugins.PIMPmyPLiHD.InfobarWeatherWidget = ConfigSelection(default="No", choices = [
+				("No", _("No")),
+				("WeatherOnly", _("Weather Only")),
+				("WeatherAndCity", _("Weather and City Name"))
+				])
 				
 config.plugins.PIMPmyPLiHD.SkinColor = ConfigSelection(default="#00bf9217", choices = [
 				("#00F0A30A", _("1-Amber")),
@@ -134,16 +136,17 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 		self.SkinDefaultTmp = self.SkinDefault + ".TMP"
 		self.SkinFinal = "/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/skin.xml"
 		list = []
-		list.append(getConfigListEntry(_("Main Color"), config.plugins.PIMPmyPLiHD.SkinColor))
-		list.append(getConfigListEntry(_("ListBox Selection Color"), config.plugins.PIMPmyPLiHD.ListBoxColor))
-		list.append(getConfigListEntry(_("Picons Size"), config.plugins.PIMPmyPLiHD.PiconsChoice))
-		list.append(getConfigListEntry(_("Font"), config.plugins.PIMPmyPLiHD.FontSelection))
+		list.append(getConfigListEntry(_("Skin Configuration: "), ))
+		list.append(getConfigListEntry(_("   Main Color"), config.plugins.PIMPmyPLiHD.SkinColor))
+		list.append(getConfigListEntry(_("   ListBox Selection Color"), config.plugins.PIMPmyPLiHD.ListBoxColor))
+		list.append(getConfigListEntry(_("   Picons Size"), config.plugins.PIMPmyPLiHD.PiconsChoice))
+		list.append(getConfigListEntry(_("   Font"), config.plugins.PIMPmyPLiHD.FontSelection))
 		list.append(getConfigListEntry(_(" "), ))
-		list.append(getConfigListEntry(_("Show Weather in second infobar"), config.plugins.PIMPmyPLiHD.InfobarWeatherWidget))		
-		list.append(getConfigListEntry(_("Show City Name in Weather Widget"), config.plugins.PIMPmyPLiHD.InfobarWeatherCityWidget))	
-		list.append(getConfigListEntry(_("MetrixWeather City ID"), config.plugins.MetrixWeather.woeid))
-		list.append(getConfigListEntry(_("Temperature Unit"), config.plugins.MetrixWeather.tempUnit))
-		list.append(getConfigListEntry(_("Weather Refresh Interval (min)"), config.plugins.MetrixWeather.refreshInterval))
+		list.append(getConfigListEntry(_("Weather Widget Configuration:"), ))
+		list.append(getConfigListEntry(_("   Display in second infobar"), config.plugins.PIMPmyPLiHD.InfobarWeatherWidget))		
+		list.append(getConfigListEntry(_("   City ID"), config.plugins.MetrixWeather.woeid))
+		list.append(getConfigListEntry(_("   Temperature Unit"), config.plugins.MetrixWeather.tempUnit))
+		list.append(getConfigListEntry(_("   Refresh Interval (min)"), config.plugins.MetrixWeather.refreshInterval))
 
 		ConfigListScreen.__init__(self, list)
 		self["actions"] = ActionMap(["OkCancelActions","DirectionActions", "InputActions", "ColorActions"], {"left": self.keyLeft,"down": self.keyDown,"up": self.keyUp,"right": self.keyRight,"red": self.exit,"yellow": self.reboot, "blue": self.showInfo, "green": self.save,"cancel": self.exit}, -1)
@@ -193,10 +196,11 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 				skinSearchAndReplace.append(['<color name="ListboxSelectedForeground" color="white"/>', '<color name="ListboxSelectedForeground" color="selectedFG"></color>' ])
 			if config.plugins.PIMPmyPLiHD.PiconsChoice.value == "shdpicon":
 				skinSearchAndReplace.append(['<panel name="InfoBarTemplate"/>', '<panel name="InfoBarTemplateSHDPicon"/>' ])
-			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.getValue() is True:
+			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.value == "WeatherOnly":
 				skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplate"/>' ])
-				if config.plugins.PIMPmyPLiHD.InfobarWeatherCityWidget.getValue() is True:
-					skinSearchAndReplace.append(['<panel name="MetrixWeatherNoCityTemplate"/>', '<panel name="MetrixWeatherCityTemplate"/>' ])		
+			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.value == "WeatherAndCity":
+				skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplate"/>' ])
+				skinSearchAndReplace.append(['<panel name="MetrixWeatherNoCityTemplate"/>', '<panel name="MetrixWeatherCityTemplate"/>' ])		
 
 			SkinDefaultFile = open(self.SkinDefault, "r")
 			SkinDefaultLines = SkinDefaultFile.readlines()
