@@ -333,7 +333,7 @@
       <convert type="EventTime">Duration</convert>
       <convert type="ClockToText">InMinutes</convert>
     </widget>
-	  <eLabel name="new eLabel" position="220,627" size="840,4" foregroundColor="foreground" backgroundColor="foreground" zPosition="1" transparent="0"/>
+	  <eLabel name="new eLabel" position="220,628" size="840,2" backgroundColor="uncccccc" zPosition="1" transparent="0"/>
 	  <widget source="session.Event_Now" render="Progress" foregroundColor="secondFG" position="220,625" size="840,8" transparent="1" zPosition="2" borderWidth="0">
     <!-- <widget source="session.Event_Now" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/infobar/pbar.png" position="220,625" size="840,8" transparent="1" zPosition="2" borderWidth="0"> -->
     <!-- <widget source="session.Event_Now" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/infobar/pbar.png" position="220,625" size="840,8" backgroundColor="un33333a" transparent="0" zPosition="2" borderWidth="0"> -->
