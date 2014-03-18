@@ -256,7 +256,8 @@
       <convert type="EventTime">EndTime</convert>
       <convert type="ClockToText" />
     </widget>
-    <widget source="ServiceEvent" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/window/progress.png" position="155,395" size="190,12" transparent="1" borderWidth="1" borderColor="grey">
+	<widget source="ServiceEvent" render="Progress" position="155,395" foregroundColor="secondFG" size="190,12" transparent="1" borderWidth="1" borderColor="grey">
+    <!--<widget source="ServiceEvent" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/window/progress.png" position="155,395" size="190,12" transparent="1" borderWidth="1" borderColor="grey"> -->
       <convert type="EventTime">Progress</convert>
     </widget>
     <widget source="ServiceEvent" render="Label" position="85,420" size="435,160" transparent="1" font="Regular; 20">
@@ -421,7 +422,8 @@
     <widget source="Event" render="Label" position="780,110" size="380,24" backgroundColor="background" transparent="1" foregroundColor="yellow" font="Regular;22" valign="top">
       <convert type="EventName">Name</convert>
     </widget>
-    <widget source="Event" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/infobar/pbar.png" position="520,135" size="710,8" transparent="1" borderWidth="2" borderColor="#33333a">
+    <widget source="Event" render="Progress" foregroundColor="secondFG" position="520,135" size="710,8" transparent="1" borderWidth="2" borderColor="#33333a">
+<!--    <widget source="Event" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/infobar/pbar.png" position="520,135" size="710,8" transparent="1" borderWidth="2" borderColor="#33333a">  -->
       <convert type="EventTime">Progress</convert>
     </widget>
     <widget source="Event" render="Label" position="520,145" size="710,185" backgroundColor="background" transparent="1" font="Regular;20">
@@ -655,7 +657,8 @@
     <convert type="EventTime">StartTime</convert>
     <convert type="ClockToText">Default</convert>
     </widget>
-    <widget source="session.Event_Now" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/window/progress.png" position="165,151" size="190,12" transparent="1" borderWidth="1" borderColor="grey">
+    <widget source="session.Event_Now" render="Progress" foregroundColor="secondFG" position="165,151" size="190,12" transparent="1" borderWidth="1" borderColor="grey">
+    <!--<widget source="session.Event_Now" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/window/progress.png" position="165,151" size="190,12" transparent="1" borderWidth="1" borderColor="grey"> -->
     <convert type="EventTime">Progress</convert>
     </widget>
     <widget source="session.Event_Now" render="Label" position="375,147" size="62,22" transparent="1" foregroundColor="foreground" font="Regular;19">
@@ -701,7 +704,8 @@
       <convert type="ServiceInfo">IsMultichannel</convert>
       <convert type="ConditionalShowHide"/>
     </widget>
-    <widget source="session.Event_Now" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/infobar/pbar.png" position="220,105" size="840,8" transparent="1" zPosition="2" borderWidth="2" borderColor="un33333a">
+    <!-- <widget source="session.Event_Now" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/infobar/pbar.png" position="220,105" size="840,8" transparent="1" zPosition="2" borderWidth="2" borderColor="un33333a"> -->
+    <widget source="session.Event_Now" render="Progress" foregroundColor="secondFG" position="220,105" size="840,8" transparent="1" zPosition="2" borderWidth="2" borderColor="un33333a">
       <convert type="EventTime">Progress</convert>
     </widget>
     <widget source="RdsDecoder" render="Pixmap" pixmap="skin_default/icons/rass_logo.png" position="85,60" size="100,60" zPosition="2" alphatest="on">
