@@ -97,8 +97,9 @@
       <convert type="EventTime">Duration</convert>
       <convert type="ClockToText">InMinutes</convert>
     </widget>
-	<eLabel name="new eLabel" position="320,627" size="740,4" foregroundColor="secondFG" backgroundColor="secondFG" zPosition="1" transparent="0"/>
-    <widget source="session.Event_Now" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/infobar/pbar.png" position="320,625" size="740,8" transparent="1" zPosition="2" borderWidth="0">
+	 <eLabel name="new eLabel" position="320,627" size="740,4" foregroundColor="foreground" backgroundColor="foreground" zPosition="1" transparent="0"/> -->
+<    <widget source="session.Event_Now" render="Progress" foregroundColor="secondFG" position="320,625" size="740,8" transparent="1" zPosition="2" borderWidth="0"> -->
+<!--    <widget source="session.Event_Now" render="Progress" pixmap="PIMP-my-PLiHD-by-talbs/infobar/pbar.png" position="320,625" size="740,8" transparent="1" zPosition="2" borderWidth="0"> -->
       <convert type="EventTime">Progress</convert>
     </widget>
     <widget source="session.CurrentService" render="Pixmap" pixmap="PIMP-my-PLiHD-by-talbs/infobar/ico_format_4_3.png" position="1020,588" size="40,21" zPosition="3" alphatest="on">
