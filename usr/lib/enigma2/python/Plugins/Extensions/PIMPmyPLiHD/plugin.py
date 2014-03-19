@@ -62,6 +62,12 @@ config.plugins.PIMPmyPLiHD.InfobarWeatherWidget = ConfigSelection(default="No", 
 				("WeatherOnly", _("Weather Only")),
 				("WeatherAndCity", _("Weather and City Name"))
 				])
+
+config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast = ConfigSelection(default="TwoDays", choices = [
+				("Now", _("Now")),
+				("OneDay", _("One Day")),
+				("TwoDays", _("Two Days"))
+				])				
 				
 config.plugins.PIMPmyPLiHD.SkinColor = ConfigSelection(default="#00bf9217", choices = [
 				("#00F0A30A", _("1-Amber")),
@@ -144,6 +150,7 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 		list.append(getConfigListEntry(_(" "), ))
 		list.append(getConfigListEntry(_("Weather Widget Configuration:"), ))
 		list.append(getConfigListEntry(_("   Display in second infobar"), config.plugins.PIMPmyPLiHD.InfobarWeatherWidget))		
+		list.append(getConfigListEntry(_("   Forcast Display"), config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast))		
 		list.append(getConfigListEntry(_("   City ID"), config.plugins.MetrixWeather.woeid))
 		list.append(getConfigListEntry(_("   Temperature Unit"), config.plugins.MetrixWeather.tempUnit))
 		list.append(getConfigListEntry(_("   Refresh Interval (min)"), config.plugins.MetrixWeather.refreshInterval))
@@ -196,12 +203,17 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 				skinSearchAndReplace.append(['<color name="ListboxSelectedForeground" color="white"/>', '<color name="ListboxSelectedForeground" color="selectedFG"></color>' ])
 			if config.plugins.PIMPmyPLiHD.PiconsChoice.value == "shdpicon":
 				skinSearchAndReplace.append(['<panel name="InfoBarTemplate"/>', '<panel name="InfoBarTemplateSHDPicon"/>' ])
-			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.value == "WeatherOnly":
-				skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplate"/>' ])
-			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.value == "WeatherAndCity":
-				skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplate"/>' ])
+			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.value != "No":	
+				if config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast.value == "Now":
+					skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplateNow"/>' ])
+				if config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast.value == "OneDay":
+					skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplateToday"/>' ])
+				if config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast.value == "TwoDays":
+					skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplateTwoDays"/>' ])					
+			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.value == "WeatherAndCity":	
 				skinSearchAndReplace.append(['<panel name="MetrixWeatherNoCityTemplate"/>', '<panel name="MetrixWeatherCityTemplate"/>' ])		
-
+				
+				
 			SkinDefaultFile = open(self.SkinDefault, "r")
 			SkinDefaultLines = SkinDefaultFile.readlines()
 			SkinDefaultFile.close()
