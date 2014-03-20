@@ -56,13 +56,11 @@ config.plugins.PIMPmyPLiHD.PiconsChoice = ConfigSelection(default="normalpicon",
 				("shdpicon", _("SHD (220x132)")),
 				("normalpicon", _("Normal (100x60)"))
 				])
-	
-config.plugins.PIMPmyPLiHD.InfobarWeatherWidget = ConfigSelection(default="No", choices = [
-				("No", _("No")),
-				("WeatherOnly", _("Weather Only")),
-				("WeatherAndCity", _("Weather and City Name"))
-				])
 
+config.plugins.PIMPmyPLiHD.InfobarWeatherWidget = ConfigYesNo(default = False)
+
+config.plugins.PIMPmyPLiHD.InfobarCityWidget = ConfigYesNo(default = False)
+				
 config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast = ConfigSelection(default="TwoDays", choices = [
 				("Now", _("Now")),
 				("OneDay", _("One Day")),
@@ -126,10 +124,39 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 	def __init__(self, session, args = None, picPath = None):
 		Screen.__init__(self, session)
 		self.session = session
-		
+		self.myskinpath = "/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/"
+		self.myfontpath = self.myskinpath + "fonts/"
+		self.SkinDefault = self.myskinpath + "default_skin.xml"
+		self.SkinDefaultTmp = self.SkinDefault + ".TMP"
+		self.SkinFinal = self.myskinpath + "skin.xml"
+		ConfigListScreen.__init__(self, [])
+		self.createFontList()
+		self.createConfigList()		
+		self["actions"] = ActionMap(["OkCancelActions","DirectionActions", "InputActions", "ColorActions"], {"left": self.keyLeft,"down": self.keyDown,"up": self.keyUp,"right": self.keyRight,"red": self.exit,"yellow": self.reboot, "blue": self.showInfo, "green": self.save,"cancel": self.exit}, -1)
+
+	def createConfigList(self):
+		list = []
+		list1 = []
+		list.append(getConfigListEntry(_("Skin Configuration: "), ))
+		list.append(getConfigListEntry(_("   Main Color"), config.plugins.PIMPmyPLiHD.SkinColor))
+		list.append(getConfigListEntry(_("   ListBox Selection Color"), config.plugins.PIMPmyPLiHD.ListBoxColor))
+		list.append(getConfigListEntry(_("   Picons Size"), config.plugins.PIMPmyPLiHD.PiconsChoice))
+		list.append(getConfigListEntry(_("   Font"), config.plugins.PIMPmyPLiHD.FontSelection))
+		list.append(getConfigListEntry(_("Weather Widget Configuration:"), ))
+		list.append(getConfigListEntry(_("   Display in second infobar"), config.plugins.PIMPmyPLiHD.InfobarWeatherWidget))	
+		list1.append(getConfigListEntry(_("   Display City Name"), config.plugins.PIMPmyPLiHD.InfobarCityWidget))	
+		list1.append(getConfigListEntry(_("   Forcast Display"), config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast))		
+		list1.append(getConfigListEntry(_("   City ID"), config.plugins.MetrixWeather.woeid))
+		list1.append(getConfigListEntry(_("   Temperature Unit"), config.plugins.MetrixWeather.tempUnit))
+		list1.append(getConfigListEntry(_("   Refresh Interval (min)"), config.plugins.MetrixWeather.refreshInterval))	
+		if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.getValue() is True:
+			list.extend(list1)
+		self.list = list
+		self["config"].list = list
+		self["config"].l.setList(list)
+	
+	def createFontList(self):
 		fontlist = []
-		self.myfontpath = "/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/"
-		self.openplifontpath = "/usr/share/fonts/"
 		fontlist.append(('nmsbd.ttf', 'nmsbd (default PLiHD font)'))
 		for myfonts in listdir(self.myfontpath):
 			if myfonts != "meteocons.ttf":
@@ -138,43 +165,21 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 					fontlist.append((self.myfontpath + myfonts, myfontsname))
 		config.plugins.PIMPmyPLiHD.FontSelection = ConfigSelection(default="nmsbd (default PLiHD font)",choices=fontlist)
 		
-		self.SkinDefault = "/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/default_skin.xml"
-		self.SkinDefaultTmp = self.SkinDefault + ".TMP"
-		self.SkinFinal = "/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/skin.xml"
-		list = []
-		list.append(getConfigListEntry(_("Skin Configuration: "), ))
-		list.append(getConfigListEntry(_("   Main Color"), config.plugins.PIMPmyPLiHD.SkinColor))
-		list.append(getConfigListEntry(_("   ListBox Selection Color"), config.plugins.PIMPmyPLiHD.ListBoxColor))
-		list.append(getConfigListEntry(_("   Picons Size"), config.plugins.PIMPmyPLiHD.PiconsChoice))
-		list.append(getConfigListEntry(_("   Font"), config.plugins.PIMPmyPLiHD.FontSelection))
-		list.append(getConfigListEntry(_(" "), ))
-		list.append(getConfigListEntry(_("Weather Widget Configuration:"), ))
-		list.append(getConfigListEntry(_("   Display in second infobar"), config.plugins.PIMPmyPLiHD.InfobarWeatherWidget))		
-		list.append(getConfigListEntry(_("   Forcast Display"), config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast))		
-		list.append(getConfigListEntry(_("   City ID"), config.plugins.MetrixWeather.woeid))
-		list.append(getConfigListEntry(_("   Temperature Unit"), config.plugins.MetrixWeather.tempUnit))
-		list.append(getConfigListEntry(_("   Refresh Interval (min)"), config.plugins.MetrixWeather.refreshInterval))
-
-		ConfigListScreen.__init__(self, list)
-		self["actions"] = ActionMap(["OkCancelActions","DirectionActions", "InputActions", "ColorActions"], {"left": self.keyLeft,"down": self.keyDown,"up": self.keyUp,"right": self.keyRight,"red": self.exit,"yellow": self.reboot, "blue": self.showInfo, "green": self.save,"cancel": self.exit}, -1)
-
-	def keyLeft(self):	
-		ConfigListScreen.keyLeft(self)	
-
+	def keyLeft(self):
+		ConfigListScreen.keyLeft(self)
+		self.createConfigList()
 
 	def keyRight(self):
 		ConfigListScreen.keyRight(self)
-
+		self.createConfigList()
 	
 	def keyDown(self):
 		#print "key down"
 		self["config"].instance.moveSelection(self["config"].instance.moveDown)
-
 		
 	def keyUp(self):
 		#print "key up"
 		self["config"].instance.moveSelection(self["config"].instance.moveUp)
-
 	
 	def reboot(self):
 		restartbox = self.session.openWithCallback(self.restartGUI,MessageBox,_("Do you really want to restart Enigma2 now?"), MessageBox.TYPE_YESNO)
@@ -182,9 +187,8 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 		
 	def showInfo(self):
 		self.session.open(MessageBox, _("PIMP-my-PLiHD-by-talbs\n\n- To get your MetrixWeather City ID visit\nhttp://open-store.net/?page=metrixweather\n\n- To use your own font, send it to\n/usr/share/enigma2/PIMP-my-PLiHD-by-talbs/fonts/ "), MessageBox.TYPE_INFO)
-
+		
 	def save(self):
-	
 		for x in self["config"].list:
 			if len(x) > 1:
         			x[1].save()
@@ -203,15 +207,15 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 				skinSearchAndReplace.append(['<color name="ListboxSelectedForeground" color="white"/>', '<color name="ListboxSelectedForeground" color="selectedFG"></color>' ])
 			if config.plugins.PIMPmyPLiHD.PiconsChoice.value == "shdpicon":
 				skinSearchAndReplace.append(['<panel name="InfoBarTemplate"/>', '<panel name="InfoBarTemplateSHDPicon"/>' ])
-			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.value != "No":	
+			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.getValue() is True:	
 				if config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast.value == "Now":
 					skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplateNow"/>' ])
 				if config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast.value == "OneDay":
 					skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplateToday"/>' ])
 				if config.plugins.PIMPmyPLiHD.InfobarWeatherWidgetForcast.value == "TwoDays":
 					skinSearchAndReplace.append(['<panel name="MetrixNoWeatherTemplate"/>', '<panel name="MetrixWeatherTemplateTwoDays"/>' ])					
-			if config.plugins.PIMPmyPLiHD.InfobarWeatherWidget.value == "WeatherAndCity":	
-				skinSearchAndReplace.append(['<panel name="MetrixWeatherNoCityTemplate"/>', '<panel name="MetrixWeatherCityTemplate"/>' ])		
+				if config.plugins.PIMPmyPLiHD.InfobarCityWidget.getValue() is True:	
+					skinSearchAndReplace.append(['<panel name="MetrixWeatherNoCityTemplate"/>', '<panel name="MetrixWeatherCityTemplate"/>' ])		
 				
 				
 			SkinDefaultFile = open(self.SkinDefault, "r")
