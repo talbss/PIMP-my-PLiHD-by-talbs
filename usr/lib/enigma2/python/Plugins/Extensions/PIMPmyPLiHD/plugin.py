@@ -34,7 +34,7 @@ from Components.ActionMap import ActionMap
 from Components.config import config, configfile, ConfigYesNo, ConfigSubsection, getConfigListEntry, ConfigSelection, ConfigNumber, ConfigText, ConfigInteger
 from Components.ConfigList import ConfigListScreen
 from Components.Label import Label
-from os import environ, listdir, remove, rename, system
+from os import environ, listdir, remove, rename, system, path
 from skin import parseColor
 from Components.Label import Label
 import gettext
@@ -112,12 +112,14 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
   <eLabel font="Regular; 20" foregroundColor="#00ffffff" backgroundColor="#40000000" halign="left" position="337,605" size="250,33" text="Save" transparent="1" />
   <eLabel font="Regular; 20" foregroundColor="#00ffffff" backgroundColor="#40000000" halign="left" position="637,605" size="250,33" text="Reboot" transparent="1" />
   <eLabel font="Regular; 20" foregroundColor="#00ffffff" backgroundColor="#40000000" halign="left" position="937,605" size="250,33" text="Information" transparent="1" />
- <widget name="config" position="21,77" scrollbarMode="showOnDemand" size="590,506" transparent="1" />
-  <eLabel position="20,15" size="348,50" text="PIMPmyPLiHD configuration panel" font="Regular; 30" valign="center" transparent="1" backgroundColor="#40000000" />
+  <widget name="config" position="21,77" scrollbarMode="showOnDemand" size="590,506" transparent="1" />
+  <eLabel position="20,15" size="1000,50" text="Configuration Tool for PIMP my PLiHD by talbs skin" font="Regular; 25" valign="center" transparent="1" backgroundColor="#40000000" />
   <eLabel position="920,600" size="5,40" backgroundColor="#000000ff" />
   <eLabel position="620,600" size="5,40" backgroundColor="#00ffff00" />
   <eLabel position="320,600" size="5,40" backgroundColor="#0000ff00" />
   <eLabel position="20,600" size="5,40" backgroundColor="#00ff0000" />
+  <ePixmap pixmap="PIMP-my-PLiHD-by-talbs/skinparts/ColorPanel.png" position="730,127" size="399,196" zPosition="1" alphatest="on" />
+
 </screen>
 """
 
@@ -129,6 +131,7 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 		self.SkinDefault = self.myskinpath + "default_skin.xml"
 		self.SkinDefaultTmp = self.SkinDefault + ".TMP"
 		self.SkinFinal = self.myskinpath + "skin.xml"
+		self.nmsbd = "/usr/share/fonts/nmsbd.ttf"
 		ConfigListScreen.__init__(self, [])
 		self.createFontList()
 		self.createConfigList()		
@@ -157,13 +160,16 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 	
 	def createFontList(self):
 		fontlist = []
-		fontlist.append(('nmsbd.ttf', 'nmsbd (default PLiHD font)'))
 		for myfonts in listdir(self.myfontpath):
 			if myfonts != "meteocons.ttf":
 				if myfonts.find('.ttf') !=-1:
 					myfontsname = myfonts.replace('.ttf', '')
 					fontlist.append((self.myfontpath + myfonts, myfontsname))
-		config.plugins.PIMPmyPLiHD.FontSelection = ConfigSelection(default="nmsbd (default PLiHD font)",choices=fontlist)
+		if path.exists(self.nmsbd) is True:
+			fontlist.append(('nmsbd.ttf', 'nmsbd (default PLiHD font)'))
+			config.plugins.PIMPmyPLiHD.FontSelection = ConfigSelection(default="nmsbd.ttf",choices=fontlist)
+		else:
+			config.plugins.PIMPmyPLiHD.FontSelection = ConfigSelection(choices=fontlist)
 		
 	def keyLeft(self):
 		ConfigListScreen.keyLeft(self)
@@ -199,7 +205,8 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 		try:
 
 			skinSearchAndReplace = []
-			skinSearchAndReplace.append(['#00bf9217', config.plugins.PIMPmyPLiHD.SkinColor.value ])
+			if config.plugins.PIMPmyPLiHD.SkinColor.value != "#00bf9217":
+				skinSearchAndReplace.append(['#00bf9217', config.plugins.PIMPmyPLiHD.SkinColor.value ])
 			if config.plugins.PIMPmyPLiHD.FontSelection.value != "nmsbd.ttf":
 				skinSearchAndReplace.append(['nmsbd.ttf', config.plugins.PIMPmyPLiHD.FontSelection.value ])
 			if config.plugins.PIMPmyPLiHD.ListBoxColor.value == "Black":
@@ -235,7 +242,9 @@ class PIMPmyPLiHD(ConfigListScreen, Screen):
 			
 		except:
 			self.session.open(MessageBox, _("Error creating Skin!"), MessageBox.TYPE_ERROR)
-
+		
+		config.skin.primary_skin.setValue("PIMP-my-PLiHD-by-talbs/skin.xml")
+		config.skin.save()
 		configfile.save()
 		restartbox = self.session.openWithCallback(self.restartGUI,MessageBox,_("GUI needs a restart to apply a new skin.\nDo you want to Restart the GUI now ?"), MessageBox.TYPE_YESNO)
 		restartbox.setTitle(_("Restart GUI"))
